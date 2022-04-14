@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, TextAreaField
+from wtforms import StringField, PasswordField, TextAreaField, BooleanField
 from flask_wtf.file import FileField, FileRequired, FileAllowed
 from wtforms.validators import InputRequired
 from wtforms.fields.html5 import EmailField
@@ -15,3 +15,10 @@ class RegistrationForm(FlaskForm):
   confirm = PasswordField('Confirm Password')
   date_joined = datetime.now()
   photo = FileField('Photo', validators=[FileRequired(), FileAllowed(['jpg','png'], 'Images Only!')])
+
+  
+  
+ class LoginForm(FlaskForm):
+    username = StringField('Username', validators=[InputRequired(), validators.Length(11,100)])
+    password = PasswordField('Password', validators=[DataRequired()])
+    remember_me = BooleanField('Remember me', default=False) 
