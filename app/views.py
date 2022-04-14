@@ -23,6 +23,26 @@ def index():
 # The functions below should be applicable to all Flask apps.
 ###
 
+@app.route('/api/register', methods=['POST']) ## Accepts user information and saves it to the database 
+
+@app.route('/api/auth/login', methods=['POST']) ## Accepts login credentials as username and password
+
+@app.route('/api/auth/logout', methods=['POST']) ## Logout a user
+
+@app.route('/api/cars', methods=['GET']) ## Return all cars
+
+@app.route('/api/cars', methods=['POST']) ## Used for adding new cars
+
+@app.route('/api/cars/{car_id}', methods=['GET']) ## Get Details of a specific car
+
+@app.route('/api/cars/{car_id}/favourite', methods=['POST']) ## Add car to Favourites for logged in user
+
+@app.route('/api/search', methods=['GET']) ## Search for cars by make or model
+
+@app.route('/api/users/{user_id}', methods=['GET']) ## Get Details of a user
+
+@app.route('/api/users/{user_id}/favourites', methods=['GET']) ## Get cars that a user has favourited
+
 # Here we define a function to collect form errors from Flask-WTF
 # which we can later use
 def form_errors(form):
