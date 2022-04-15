@@ -5,7 +5,7 @@ Werkzeug Documentation:  https://werkzeug.palletsprojects.com/
 This file creates your application.
 """
 
-from app import app
+from app import app, db
 from flask import render_template, request, jsonify, send_file
 import os
 
@@ -24,6 +24,7 @@ def index():
 ###
 
 @app.route('/api/register', methods=['POST']) ## Accepts user information and saves it to the database 
+
 
 @app.route('/api/auth/login', methods=['POST']) ## Accepts login credentials as username and password
 
