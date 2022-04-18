@@ -2,19 +2,25 @@
 export default {
     data() {
         return {
-            message: "Hello World! This is Lab 7"
+            
         };
     },
 }
 </script>
 
 <template>
-    <div class="container">
-      <div class="text-center">
-        <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-        <h1>{{ message }}</h1>
-      </div>
+  <div class="home-grid">
+    <div class="home-text-section">
+      <h1>Buy and Sell Cars Online</h1>
+      <p>United Auto Sales provides the fastest easiest and most user friendly way to buy and sell cars online.
+        Find a Great Price on the Vehicle You Want.</p>
+      
+      <button class="btn btn-primary mb-2" @click="$router.push('register')">Register</button>
+        
+      <button class="btn btn-success mb-2"  @click="$router.push('login')" >Login</button>
     </div>
+    <img class="home-image" src="../assests/car.png" alt="Car Image">
+  </div> 
 </template>
 
 <style>

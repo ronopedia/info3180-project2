@@ -1,7 +1,7 @@
 <template>
-      <footer class="mt-5">
+      <footer>
           <div class="container">
-              <p>Copyright &copy {{ year }} Flask Inc.</p>
+              <p>Copyright &copy {{ year }} United Auto Sales</p>
           </div>
       </footer>
 </template>

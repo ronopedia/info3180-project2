@@ -1,3 +1,4 @@
+from sqlalchemy import Unicode
 from . import db
 from werkzeug.security import generate_password_hash
 from datetime import datetime
@@ -13,7 +14,7 @@ class Cars(db.Model):
   year = db.Column(db.String(5), nullable=False)
   transmission = db.Column(db.String(100))
   car_type = db.Column(db.String(100), nullable=False)
-  price = db.Column(db.Decimal(10,2), nullable=False)
+  price = db.Column(db.Float, nullable=False)
   photo = db.Column(db.String(50), nullable=False)
   user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
   
@@ -28,7 +29,9 @@ class Cars(db.Model):
     self.price = price
     self.photo = photo
     self.user_id = user_id
-    
+
+  def __repr__(self):
+        return '<Cars %r>' % (self.id)  
     
     
 class Favourites(db.Model):
@@ -42,7 +45,8 @@ class Favourites(db.Model):
     self.car_id = car_id
     self.user_id = user_id 
     
-    
+  def __repr__(self):
+        return '<Favourites %r>' % (self.id)  
     
 class Users(db.Model):
   __tablename__ = 'users'
@@ -55,9 +59,9 @@ class Users(db.Model):
   location = db.Column(db.String(100), nullable=False)
   biography = db.Column(db.String(100))
   photo = db.Column(db.String(50), nullable=False)
-  date_joined = db.Column(db.DateTime, nullable=False, default=datetime.now)
+  date_joined = db.Column(db.DateTime(), nullable=False, default=datetime.now)
   
-  def __init__(self, username, password, name, email, location, biography, photo, date_joined):
+  def __init__(self, username, password, name, email, location, biography, photo):
     self.username = username
     self. password = generate_password_hash(password, method='pbkdf2:sha256')
     self.name = name
@@ -80,7 +84,7 @@ class Users(db.Model):
   
   def get_id(self):
     try:
-      return unicode(self.id)  # python 2 support
+      return Unicode(self.id)  # python 2 support
     except NameError:
       return str(self.id)  # python 3 support
     

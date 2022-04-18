@@ -6,7 +6,12 @@ This file creates your application.
 """
 
 from app import app, db
-from flask import render_template, request, jsonify, send_file
+from flask import render_template, request, jsonify, redirect, url_for, send_file, flash
+from flask_login import login_user, logout_user, login_required
+from app.forms import CarForm, LoginForm, RegisterForm, SearchForm
+from app.models import Users, Cars, Favourites
+from werkzeug.security import check_password_hash
+from werkzeug.utils import secure_filename
 import os
 
 
@@ -17,6 +22,7 @@ import os
 @app.route('/')
 def index():
     return jsonify(message="This is the beginning of our API")
+    # return send_file(os.path.join('../dist/', 'index.html'))
 
 
 ###
@@ -24,25 +30,123 @@ def index():
 ###
 
 @app.route('/api/register', methods=['POST']) ## Accepts user information and saves it to the database 
+def register():
+    form = RegisterForm()
+    if form.validate_on_submit():
+        username = form.username.data
+        password = form.password.data
+        name = form.name.data
+        email = form.email.data
+        location = form.location.data
+        biography = form.biography.data
+        photo = form.photo.data
+        filename = secure_filename(photo.filename)
+        photo.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        date_joined = form.date_joined.data 
+
+        user = Users(username=username,password=password,name=name,email=email,location=location,biography=biography,photo=photo,date_joined=date_joined)
+        db.session.add(user)
+        db.session.commit()
+
+        flash('User successfully registered')
+        return redirect(url_for("home"))
+
+    return jsonify({"errors":[{"errors": form_errors(form)}]}), 401
+
 
 
 @app.route('/api/auth/login', methods=['POST']) ## Accepts login credentials as username and password
+def login():
+    form = LoginForm()
+    #if request.method == "POST":
+
+    if form.validate_on_submit():
+        uname = form.username.data
+        pword = form.password.data
+        user = Users.query.filter_by(user.username==uname).first()
+        if user is not None and check_password_hash(user.password,pword):
+            login_user(user)
+            flash('User successfully logged in', 'success')
+            return redirect(url_for("explore"))  
+    return jsonify({"message": "Invalid username or password"}),401
+
 
 @app.route('/api/auth/logout', methods=['POST']) ## Logout a user
+@login_required
+def logout():
+    logout_user()
+    flash("Logged out.", "danger")
+    return redirect(url_for("home"))
+
 
 @app.route('/api/cars', methods=['GET']) ## Return all cars
+@login_required
+def getCars():
+   if request.method == "GET":
+       cars = Cars.query.all()
+       return cars
 
 @app.route('/api/cars', methods=['POST']) ## Used for adding new cars
+@login_required
+def addCars():
+    form = CarForm()
+    if request.method == "POST":
+        newcar = Cars(form.data)
+        db.session.add(newcar)
+        db.session.commit()
+        flash('New car added!')
+
 
 @app.route('/api/cars/{car_id}', methods=['GET']) ## Get Details of a specific car
+@login_required
+def getCarbyId(car_id):
+    #if request.method == "GET":
+    car = Cars.query.filter_by(Cars.id==car_id).first()
+    return car
+
 
 @app.route('/api/cars/{car_id}/favourite', methods=['POST']) ## Add car to Favourites for logged in user
+@login_required
+def addfaveCar(car_id):
+    #if request.method == "POST":
+    car = Cars.query.filter_by(Cars.id==car_id).first()
+    if car not in Favourites:
+        favecar = Favourites(car)
+        db.session.add(favecar)
+        db.session.commit()
+        flash('Car was added to favourites!')
+
 
 @app.route('/api/search', methods=['GET']) ## Search for cars by make or model
+@login_required
+def searchCar():
+    form = SearchForm()
+    #if request.method == "GET":
+    if form.validate_on_submit():
+        make = form.make.data
+        model = form.model.data
+        if make in Cars.make or model in Cars.model:
+            result = Cars.query.filter_by(Cars.make==make, Cars.model==make).first()
+            return result
+        return jsonify({"message": "Not found"}), 404
+
 
 @app.route('/api/users/{user_id}', methods=['GET']) ## Get Details of a user
+@login_required
+def getUserbyId(user_id):
+    if request.method == "GET":
+        user = Users.query.filter_by(user_id=user_id).first()
+        return user
+
 
 @app.route('/api/users/{user_id}/favourites', methods=['GET']) ## Get cars that a user has favourited
+@login_required
+def getfaveCar(user_id):
+    if request.method == "GET":
+        fave = Favourites.query.filter_by(user_id=user_id).first()
+        return fave
+    
+
 
 # Here we define a function to collect form errors from Flask-WTF
 # which we can later use
