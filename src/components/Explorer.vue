@@ -13,7 +13,7 @@
 
 <div v-for="car in cars" class="col-sm-6 col-md-4 mb-5">
     <div class="card w-77 h-100 border-top-0 border-start-0 border-end-0 border-bottom border-5 border-success shadow">
-        <img :src="/" alt="car image" class="card-img-top"/>
+        <img  alt="car image" class="card-img-top"/>
             <div class="card-body">
                 <h5 class="card-title"> Make {{ make }} </h5> <span class="badge rounded-pill bg-success">Price {{price}}</span>
                 <h6 class="card-text"> Model {{ model }} </h6>

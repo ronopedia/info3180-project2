@@ -10,6 +10,7 @@ export default {
 
 <template>
   <div class="home-grid">
+    
     <div class="home-text-section">
       <h1>Buy and Sell Cars Online</h1>
       <p>United Auto Sales provides the fastest easiest and most user friendly way to buy and sell cars online.

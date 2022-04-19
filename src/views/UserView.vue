@@ -1,6 +1,6 @@
 <template>
 <div class="card">
-        <img :src="images\car.png" alt="user image" class="card-img-left"/>
+        <img :src="images/car.png" alt="user image" class="card-img-left"/>
             <div class="card-body">
                 <h3 class="card-title"> {{ name }} </h3> 
                 <h4 class="card-text"> @{{ username }} </h4>
@@ -14,7 +14,7 @@
 <h3>Cars Favourited</h3>
 <div  class="col-sm-6 col-md-4 mb-5">
     <div class="card w-77 h-100 border-top-0 border-start-0 border-end-0 border-bottom border-5 border-success shadow">
-        <img :src="/" alt="car image" class="card-img-top"/>
+        <img  alt="car image" class="card-img-top"/>
             <div class="card-body">
                 <h5 class="card-title"> {{ make }} </h5> <span class="badge rounded-pill bg-success">Price {{price}}</span>
                 <h6 class="card-text"> {{ model }} </h6>

@@ -51,7 +51,7 @@ def register():
         flash('User successfully registered')
         return redirect(url_for("home"))
 
-    return jsonify({"errors":[{"errors": form_errors(form)}]}), 401
+    return jsonify({"errors": form_errors(form)}), 401
 
 
 
@@ -68,7 +68,7 @@ def login():
             login_user(user)
             flash('User successfully logged in', 'success')
             return redirect(url_for("explore"))  
-    return jsonify({"message": "Invalid username or password"}),401
+    return jsonify({"message": "Invalid username or password"}), 401
 
 
 @app.route('/api/auth/logout', methods=['POST']) ## Logout a user
@@ -114,7 +114,8 @@ def addfaveCar(car_id):
         favecar = Favourites(car)
         db.session.add(favecar)
         db.session.commit()
-        flash('Car was added to favourites!')
+        return jsonify({"message": "Car Successfully Favourited"}), 200
+    #return jsonify({"message": "Car was already favourited"}), 401
 
 
 @app.route('/api/search', methods=['GET']) ## Search for cars by make or model
@@ -128,14 +129,14 @@ def searchCar():
         if make in Cars.make or model in Cars.model:
             result = Cars.query.filter_by(Cars.make==make, Cars.model==make).first()
             return result
-        return jsonify({"message": "Not found"}), 404
+        return jsonify({"message": "Car Not found"}), 404
 
 
 @app.route('/api/users/{user_id}', methods=['GET']) ## Get Details of a user
 @login_required
 def getUserbyId(user_id):
     if request.method == "GET":
-        user = Users.query.filter_by(user_id=user_id).first()
+        user = Users.query.filter_by(Users.user_id==user_id).first()
         return user
 
 
@@ -143,7 +144,7 @@ def getUserbyId(user_id):
 @login_required
 def getfaveCar(user_id):
     if request.method == "GET":
-        fave = Favourites.query.filter_by(user_id=user_id).first()
+        fave = Favourites.query.filter_by(Favourites.user_id==user_id).first()
         return fave
     
 
