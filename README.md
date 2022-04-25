@@ -1,7 +1,7 @@
 ## GROUP MEMBERS
-Ronaldo Salmon
-Corey Anderson
-Bradley Henry
+Ronaldo Salmon,
+Corey Anderson,
+Bradley Henry,
 Sherylee West
 
 # info3180-lab7-vuejs-starter
