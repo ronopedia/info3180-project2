@@ -38,7 +38,7 @@ const router = createRouter({
       component: () => import('../views/ExplorerView.vue')
     },
     {
-      path: '/users/{user_id}',
+      path: '/users/1',
       name: 'user',
       component: () => import('../views/UserView.vue')
     },
@@ -48,7 +48,7 @@ const router = createRouter({
       component: () => import('../views/AddCarView.vue')
     },
     {
-      path: '/cars/{car_id}',
+      path: '/cars/2',
       name: 'car',
       component: () => import('../views/CarDetailView.vue')
     }

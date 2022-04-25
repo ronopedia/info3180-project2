@@ -1,0 +1,11 @@
+<h1>Login to your account</h1>
+
+<form @submit.prevent="userLogin" method="POST" enctype="multipart/form-data" id="loginForm">
+    <label for="username">Username</label>
+    <input type="text" name="user" id="user" required>
+    
+    <label for="password">Password</label>
+    <input type="text" name="pass" id="pass" required>
+
+    <button type="submit">Login</button>
+</form>

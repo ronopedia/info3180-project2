@@ -1,13 +1,28 @@
 <template>
+<div class="container-fluid col-4 min-vh-100">
+    <div class="d-block align-items-center justify-content-center">    
+        <h2> Log into your account</h2>
+    <div class="shadow p-3 mb-5 bg-white rounded">
     <form @submit.prevent="userLogin" method="POST" enctype="multipart/form-data" id="loginForm">
-        <label for="username">Username</label>
-        <input type="text" name="user" id="user" required>
-        
-        <label for="password">Password</label>
-        <input type="text" name="pass" id="pass" required>
-
-        <button type="submit">Login</button>
+        <div class="col-12"> 
+            <div class="row">
+                <label class="form-label" for="username">Username</label>
+                <input class="form-control" type="text" name="user" id="user" required>
+            </div>
+            <div class="row">
+                <label class="form-label" for="password">Password</label>
+                <input class="form-control" type="text" name="pass" id="pass" required> 
+            </div>
+            <div class="row">
+                <div class="mt-4 col-12">
+                    <button type="submit" class="btn btn-success mb-2">Login</button>
+                </div>
+            </div>
+        </div>
     </form>
+    </div>
+    </div>
+    </div>
 </template>
 
 
@@ -16,7 +31,7 @@ export default {
     name: 'loginForm',
     data(){
         return {
-            message: 'Login successful!'
+            message: ''
         }
     },
     methods: {
@@ -28,14 +43,14 @@ export default {
                 method: 'POST',
                 body: form_data,
                 headers:{
-                    Accept:'application/json',
-            }
+                    "Accept":"application/json",
+                    "Content-Type": "application/json"
+                }
             })
             .then(function (response) {
                 return response.json();
             })
             .then(function (data) {
-                // display a success message
                 console.log(data);
             })
         }

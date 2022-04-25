@@ -1,8 +1,8 @@
 <template>
   <header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container-fluid">
-        <a class="navbar-brand" href="/">United Auto Sales</a>
+        <a class="navbar-brand" href="/"><i class="fa-solid fa-car"></i> United Auto Sales</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -14,17 +14,17 @@
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto">
+        
+          <ul class="navbar-nav ml auto">
             <li class="nav-item">
               <RouterLink to="/register" class="nav-link active">Register</RouterLink>
             </li>
             <li class="nav-item">
-              <RouterLink class="nav-link" to="/login">Login</RouterLink>
+              <RouterLink class="nav-link active" to="/login">Login</RouterLink>
             </li>
           </ul>
         </div>
-      </div>
+      
     </nav>
   </header> 
 </template>
