@@ -23,7 +23,7 @@
         
           <ul class="navbar-nav">
             <li class="nav-item">
-              <RouterLink class="nav-link active" to="/newcars">Add Car</RouterLink>
+              <RouterLink class="nav-link active" to="/cars/new">Add Car</RouterLink>
             </li>
             <li class="nav-item">
               <RouterLink class="nav-link active" to="/explore">Explore</RouterLink>
